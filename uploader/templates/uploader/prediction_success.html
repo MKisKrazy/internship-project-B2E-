@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Prediction Success</title>
+    <style>
+        body {
+            background-color: #002a3f;
+            color: white;
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+        button {
+            background-color: #f5af09;
+            color: #002a3f;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 5px;
+            margin-top: 20px;
+        }
+        button:hover {
+            background-color: #e59e08;
+        }
+    </style>
+</head>
+<body>
+    <h1>{{ message }}</h1>
+
+    <h2>Model Evaluation Metrics</h2>
+    <p><strong>Mean Absolute Error:</strong> {{ mae }}</p>
+    <p><strong>Root Mean Square Error:</strong> {{ rmse }}</p>
+    <p><strong>R² Score:</strong> {{ r2_square }}</p>
+    <h2>Data Analysis</h2>
+    <p><strong>Duplicate Values:</strong> {{ duplicate_count }}</p>
+    <p><strong>Null Values:</strong> {{ null_values }}</p>
+    <h2>Scatter Plots</h2>
+    <img src="data:image/png;base64,{{ scatter_plot_data }}" alt="Scatter Plots">
+    <h2>Final Prediction Plot</h2>
+    <img src="data:image/png;base64,{{ final_plot_data }}" alt="Final Prediction Plot">
+
+    <form action="{% url 'predicted_data' %}" method="get">
+        {% csrf_token %}
+        <button type="submit">View Prediction</button>
+    </form>
+</body>
+</html>

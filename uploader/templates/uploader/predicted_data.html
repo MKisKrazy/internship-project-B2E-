@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Predicted Data</title>
+    <style>
+        body {
+            background-color: #002a3f;
+            color: white;
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+        table {
+            width: 40%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+        th {
+            background-color: #f5af09;
+        }
+        tr:nth-child(even) {
+            background-color: #333333;
+        }
+        .main-div {
+            display: flex;
+            gap: 10rem;
+        }
+        button {
+            background-color: #f5af09;
+            color: #002a3f;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 5px;
+            margin-top: 20px;
+        }
+        button:hover {
+            background-color: #e59e08;
+        }
+    </style>
+</head>
+<body>
+
+<h2>Actual Vs Predicted Data</h2>
+<div class="main-div">
+    <table id="predicted-table">
+        <thead>
+            <tr>
+                <th>Actual</th>
+                <th>Predicted</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Data will be inserted here by JavaScript -->
+        </tbody>
+    </table>
+</div>
+
+<button onclick="window.history.back()">Back</button>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        fetch('https://api.apistudio.app/getapi/si_01_predict/all')
+            .then(response => response.json())
+            .then(data => {
+                const tableBody = document.getElementById('predicted-table').getElementsByTagName('tbody')[0];
+                data.forEach(row => {
+                    let newRow = tableBody.insertRow();
+                    let cell1 = newRow.insertCell(0);
+                    let cell2 = newRow.insertCell(1);
+                    cell1.textContent = row.actual;
+                    cell2.textContent = row.predicted;
+                });
+            })
+            .catch(error => console.error('Error fetching data:', error));
+    });
+</script>
+
+</body>
+</html>

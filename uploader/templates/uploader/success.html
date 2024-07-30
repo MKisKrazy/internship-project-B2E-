@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>File Uploaded</title>
+</head>
+<body>
+    <h1>File Uploaded Successfully</h1>
+
+    <p>Final response code from the API: {{ response_code }}</p>
+    <p>Here is a preview of the data:</p>
+    <pre>{{ data }}</pre>
+    <form action="{% url 'start_prediction' %}" method="post">
+        {% csrf_token %}
+        <button type="submit">Start Prediction</button>
+    </form>
+</body>
+</html>
