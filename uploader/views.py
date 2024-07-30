@@ -1,17 +1,17 @@
 import pandas as pd
 import numpy as np
-import matplotlib
-matplotlib.use('Agg')  # Use 'Agg' backend for non-GUI environments
-import matplotlib.pyplot as plt
+from django.shortcuts import render
+from .forms import UploadFileForm
+from django.http import JsonResponse
+import requests
+import io
+import base64
 from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LinearRegression
 import sklearn.metrics as sm
-import requests
-from django.shortcuts import render
-import io
-import base64
-from .forms import UploadFileForm
-from django.http import JsonResponse
+import matplotlib
+matplotlib.use('Agg')  # Use 'Agg' backend for non-GUI environments
+import matplotlib.pyplot as plt
 
 def clean_file(file):
     content = file.read().decode('utf-8')
@@ -87,10 +87,10 @@ def start_prediction(request):
 
     fig, axes = plt.subplots(1, 3, figsize=(15, 5))
 
-    X = np.array(df['tv']).reshape(-1,1)
-    Y = np.array(df['sales']).reshape(-1,1)
-    N = np.array(df['newspaper']).reshape(-1,1)
-    R = np.array(df['radio']).reshape(-1,1)
+    X = np.array(df['tv']).reshape(-1, 1)
+    Y = np.array(df['sales']).reshape(-1, 1)
+    N = np.array(df['newspaper']).reshape(-1, 1)
+    R = np.array(df['radio']).reshape(-1, 1)
 
     axes[0].scatter(X, Y, color='red', label="TV corr")
     axes[0].set_xlabel('TV')
